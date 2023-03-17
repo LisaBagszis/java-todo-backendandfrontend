@@ -1,5 +1,7 @@
 package com.example.backend;
 
 public enum TodoStatus {
-    OPEN
+    OPEN,
+    IN_PROGRESS,
+    DONE
 }

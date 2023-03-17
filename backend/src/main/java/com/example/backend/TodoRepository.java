@@ -16,7 +16,7 @@ public class TodoRepository {
         return new ArrayList<>(todos.values());
     }
 
-    public Todo addTodo(Todo todoToAdd) {
+    public Todo saveTodo(Todo todoToAdd) {
         todos.put(todoToAdd.id(), todoToAdd);
         return todoToAdd;
     }

@@ -23,4 +23,12 @@ public class TodoController {
     public Todo addTodo(@RequestBody Todo todo) {
         return todoService.addTodo(todo);
     }
+
+    @PutMapping("{id}")
+    public Todo putTodo(@PathVariable String id, @RequestBody Todo todo) {
+        if (!id.equals(todo.id())) {
+            throw new IllegalArgumentException("Id's must match");
+        }
+        return todoService.updateTodo(todo);
+    }
 }

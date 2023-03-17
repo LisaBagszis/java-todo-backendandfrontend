@@ -21,6 +21,10 @@ public class TodoService {
 
     public Todo addTodo(Todo todo) {
         Todo todoToAdd = new Todo(idService.generateId(), todo.description(), todo.status());
-        return todoRepository.addTodo(todoToAdd);
+        return todoRepository.saveTodo(todoToAdd);
+    }
+
+    public Todo updateTodo(Todo todo) {
+        return todoRepository.saveTodo(todo);
     }
 }

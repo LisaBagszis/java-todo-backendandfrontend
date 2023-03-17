@@ -37,7 +37,7 @@ class TodoServiceTest {
         Todo todoToAdd = new Todo("123", "TestDescription", TodoStatus.OPEN);
 
         when(idService.generateId()).thenReturn("123");
-        when(todoRepository.addTodo(todoToAdd)).thenReturn(todoToAdd);
+        when(todoRepository.saveTodo(todoToAdd)).thenReturn(todoToAdd);
 
         //WHEN
         Todo actual = todoService.addTodo(todo);
@@ -45,7 +45,7 @@ class TodoServiceTest {
         //THEN
         Todo expected = new Todo("123", "TestDescription", TodoStatus.OPEN);
         verify(idService).generateId();
-        verify(todoRepository).addTodo(todoToAdd);
+        verify(todoRepository).saveTodo(todoToAdd);
         assertEquals(expected, actual);
     }
 }
