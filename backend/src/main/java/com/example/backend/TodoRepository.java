@@ -15,4 +15,9 @@ public class TodoRepository {
     public List<Todo> getAllTodos() {
         return new ArrayList<>(todos.values());
     }
+
+    public Todo addTodo(Todo todoToAdd) {
+        todos.put(todoToAdd.id(), todoToAdd);
+        return todoToAdd;
+    }
 }
