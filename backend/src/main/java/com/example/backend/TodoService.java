@@ -3,6 +3,7 @@ package com.example.backend;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TodoService {
@@ -26,5 +27,14 @@ public class TodoService {
 
     public Todo updateTodo(Todo todo) {
         return todoRepository.saveTodo(todo);
+    }
+
+    public Todo getTodoById(String id) {
+        Todo todo = todoRepository.getTodoById(id);
+
+        if (todo == null) {
+            throw new NoSuchElementException("Todo with id: " + id + " not found!");
+        }
+        return todo;
     }
 }

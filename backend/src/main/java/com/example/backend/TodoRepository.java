@@ -20,4 +20,8 @@ public class TodoRepository {
         todos.put(todoToAdd.id(), todoToAdd);
         return todoToAdd;
     }
+
+    public Todo getTodoById(String id) {
+        return todos.get(id);
+    }
 }
