@@ -3,6 +3,7 @@ package com.example.backend;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -47,5 +48,69 @@ class TodoServiceTest {
         verify(idService).generateId();
         verify(todoRepository).saveTodo(todoToAdd);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTodoById() {
+        //GIVEN
+        Todo todo = new Todo("123", "TestDescription", TodoStatus.OPEN);
+
+        when(todoRepository.getTodoById("123")).thenReturn(todo);
+
+        //WHEN
+        Todo actual = todoService.getTodoById("123");
+
+        //THEN
+        Todo expected = new Todo("123", "TestDescription", TodoStatus.OPEN);
+        verify(todoRepository).getTodoById("123");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTodoById_whenTodoDoesNotExist_throwException() {
+        //GIVEN
+        when(todoRepository.getTodoById("123")).thenReturn(null);
+
+        //WHEN
+        try {
+            todoService.getTodoById("123");
+
+            //THEN
+            fail();
+        } catch (NoSuchElementException ignored) {
+        }
+
+        verify(todoRepository).getTodoById("123");
+    }
+
+
+    @Test
+    void updateTodo() {
+        //GIVEN
+        Todo todo = new Todo("123", "test", TodoStatus.OPEN);
+
+        when(todoRepository.saveTodo(todo)).thenReturn(todo);
+
+        //WHEN
+
+        Todo actual = todoService.updateTodo(todo);
+
+        //THEN
+        Todo expected = new Todo("123", "test", TodoStatus.OPEN);
+        verify(todoRepository).saveTodo(todo);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void deleteTodo() {
+        //GIVEN
+        Todo todo = new Todo("123", "test", TodoStatus.OPEN);
+
+        //WHEN
+
+        todoService.deleteTodo("123");
+
+        //THEN
+        verify(todoRepository).deleteTodo("123");
     }
 }
