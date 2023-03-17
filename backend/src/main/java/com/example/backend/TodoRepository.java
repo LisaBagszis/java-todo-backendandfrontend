@@ -24,4 +24,8 @@ public class TodoRepository {
     public Todo getTodoById(String id) {
         return todos.get(id);
     }
+
+    public void deleteTodo(String id) {
+        todos.remove(id);
+    }
 }
