@@ -1,0 +1,8 @@
+.todo-boards {
+    display: flex;
+    gap: 12px;
+    border: black 2px solid;
+    margin: 12px;
+    justify-content: space-around;
+
+}
