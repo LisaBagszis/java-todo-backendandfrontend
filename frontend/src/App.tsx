@@ -1,60 +1,47 @@
-import React, {useEffect, useState} from 'react';
 import './App.css';
-import TodoBoards from "./TodoBoards";
-import AddTodo from "./AddTodo";
-import {NewTodo, Todo} from "./Todo";
+import './Header.css';
+import Header from "./Header";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import {NewTodo, ToDo} from "./ToDo";
+import AddTodo from "./AddTodo";
+import ToDoGallery from "./TodoGallery";
+//import ToDoGallery from "./ToDoGallery";
+
 
 function App() {
 
-    const [todos, setTodos] = useState<Todo[]>([])
+    const [todos, setTodos] = useState<ToDo[]>([])
 
     useEffect(() => {
-        loadAllTodos()
+        loadAllToDos()
     }, [])
 
-    function loadAllTodos() {
-        return axios.get("/api/todo")
-            .then(response => response.data)
-            .then(setTodos)
+    function loadAllToDos() {
+        axios.get("/api/todo")
+            .then((getAllTodosResponse) => {
+                setTodos(getAllTodosResponse.data)})
+            .catch((error) => {console.error(error)})
+    }
+
+    function addTodo(newTodo: NewTodo) {
+        axios.post("api/todo", newTodo)
+            .then((addTodoResponse) => {
+                setTodos([...todos, addTodoResponse.data])
+            })
             .catch(console.error)
     }
 
-    function addTodo(todo: NewTodo) {
-        return axios.post("/api/todo", todo)
-            .then(response => response.data)
-            .then(data => setTodos(prevState => [...prevState, data]))
-    }
 
-    function updateTodo(todo: Todo) {
-        axios.put("/api/todo/" + todo.id, todo)
-            .then(response => response.data)
-            .then(data =>  setTodos(prevState => {
-                return prevState.map(currentTodo => {
-                    if (currentTodo.id === todo.id) {
-                        return data
-                    }
-                    return currentTodo
-                })
-            }))
-    }
 
-    function deleteTodo(todoId: string) {
-        axios.delete(`/api/todo/${todoId}`)
-            .then(response => {
-                setTodos(prevState => {
-                    return prevState.filter(todo => todo.id !== todoId);
-                });
-            })
-            .catch(console.error);
-    }
-
-    return (
-        <div className="App">
-            <AddTodo onAdd={addTodo}/>
-            <TodoBoards todos={todos} updateTodo={updateTodo}/>
-        </div>
+return (
+    <div className="App">
+        <Header/>
+        <ToDoGallery todos={todos} />
+        <AddTodo addTodo={addTodo}/>
+    </div>
     );
+
 }
 
 export default App;

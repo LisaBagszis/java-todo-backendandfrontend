@@ -1,26 +1,26 @@
-import {ChangeEvent, useState} from "react";
-import {NewTodo} from "./Todo";
+import {useState} from "react";
+import {NewTodo} from "./ToDo";
 
-type Props = {
-    onAdd: (todo: NewTodo) => Promise<void>
+type AddTodoProps = {
+    addTodo: (newTodo: NewTodo) => void
 }
 
-export default function AddTodo(props: Props) {
+export default function AddTodo(props: AddTodoProps) {
 
-    const [description, setDescription] = useState<string>("")
+    const [description, setDescription] = useState<string>('')
 
-    function onChange(event: ChangeEvent<HTMLInputElement>) {
-        setDescription(event.target.value)
+    function onSaveTodo() {
+        const newTodo: NewTodo = {description: description, status: 'OPEN'}
+        props.addTodo(newTodo)
     }
 
-    function onSave() {
-        const newTodo: NewTodo = {description, status: "OPEN"}
-        props.onAdd(newTodo)
-            .then(r => setDescription(""))
-    }
+    return (
+        <div>
+            <input value={description} onChange={(event) => {
+                setDescription(event.target.value)
+            }}/>
+            <button onClick={onSaveTodo}>Save</button>
 
-    return <div>
-        <input value={description} onChange={onChange} placeholder="new ToDo"/>
-        <button onClick={onSave}>Save</button>
-    </div>
-}
+            </div>
+            )
+            }
