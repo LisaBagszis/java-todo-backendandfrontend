@@ -3,7 +3,7 @@ export type ToDo = {
 
     description: string,
 
-    status: "OPEN" | "IN PROGRESS" | "DONE"
+    status: "OPEN" | "IN_PROGRESS" | "DONE"
 }
 export type NewTodo = {
     description: string,

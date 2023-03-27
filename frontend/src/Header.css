@@ -1,3 +1,17 @@
+h1 {
+    font-weight: 900;
+
+}
+
 .header {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    background-color: white;
+
+}
+
+
+.header__title {
+    margin-left: 12px;
 }

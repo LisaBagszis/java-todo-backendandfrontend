@@ -1,0 +1,8 @@
+.todo-gallery {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.todo-gallery-column {
+    align-items: flex-end;
+}
