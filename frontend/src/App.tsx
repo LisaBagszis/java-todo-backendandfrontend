@@ -8,60 +8,26 @@ import ToDoGallery from "./TodoGallery";
 import './TodoGallery.css';
 import './TodoCard.css';
 import './Header.css';
+import useTodos from "./useTodos";
+import EditView from "./EditView";
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from "react-toastify";
+
+
 
 
 
 
 function App() {
 
-    const [todos, setTodos] = useState<ToDo[]>([])
 
-    useEffect(() => {
-        loadAllToDos()
-    }, [])
-
-    function loadAllToDos() {
-        axios.get("/api/todo")
-            .then((getAllTodosResponse) => {
-                setTodos(getAllTodosResponse.data)})
-            .catch((error) => {console.error(error)})
-    }
-
-    function addTodo(newTodo: NewTodo) {
-        axios.post("api/todo", newTodo)
-            .then((addTodoResponse) => {
-                setTodos([...todos, addTodoResponse.data])
-            })
-            .catch(console.error)
-    }
-
-    function updateTodo(todo : ToDo) {
-    axios.put(`api/todo/${todo.id}`, todo)
-        .then((updatedTodoResponse) => {
-            setTodos(todos.map(currentTodo => {
-                if (currentTodo.id === todo.id) {
-                    return updatedTodoResponse.data
-                }
-                else {
-                    return currentTodo
-                }
-            }))
-        })
-    }
-
-    function deleteTodo(id: string) {
-        axios.delete('api/todo/' + id)
-            .then(() => {
-                setTodos(todos.filter((todo) => todo.id !== id))
-            })
-            .catch(console.error)
-    }
-
-
+    const {todos, addTodo, updateTodo, deleteTodo, changeMode, mode, currentTodo} = useTodos()
 return (
     <div className="App">
+        <ToastContainer autoClose={3000}/>
         <Header/>
-        <ToDoGallery todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo}/>
+        {mode === "overview" && <ToDoGallery todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} changeMode={changeMode}/>}
+        {mode === "edit" && <EditView changeMode={changeMode} updateTodo={updateTodo} todo={currentTodo}/>}
         <AddTodo addTodo={addTodo}/>
     </div>
     );

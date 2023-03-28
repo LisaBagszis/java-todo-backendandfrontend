@@ -1,9 +1,11 @@
 import {ToDo} from "./ToDo";
+import {Button, Card, Typography} from "@mui/material";
 
 type TodoCardProps = {
     todo : ToDo,
     updateTodo : (todo : ToDo) => void,
-    deleteTodo: (id: string) => void
+    deleteTodo: (id: string) => void,
+    changeMode: (newMode: string, id?: string, todo?: ToDo) => void
 
 }
 
@@ -25,10 +27,11 @@ export default function TodoCard(props: TodoCardProps) {
     }
 
     return (
-        <div className='todo-card'>
-            <p> {props.todo.description}</p>
-            {props.todo.status !== 'DONE' && <button onClick={onAdvanceClick}>Advance</button>}
-            {props.todo.status == 'DONE' && <button onClick={onDeleteClick}>Delete</button>}
-        </div>
+        <Card variant="outlined" className="todoCard">
+            <Typography variant="subtitle1" color="white"> {props.todo.description}</Typography>
+            {props.todo.status !== 'DONE' && <Button variant="outlined" color="secondary" onClick={onAdvanceClick}>Advance</Button>}
+            {props.todo.status == 'DONE' && <Button variant="outlined" color="secondary" onClick={onDeleteClick}>Delete</Button>}
+            <Button variant="outlined" color="success" onClick={() => props.changeMode("edit", props.todo.id, props.todo)}>Edit</Button>
+        </Card>
     )
 }

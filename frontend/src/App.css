@@ -1,5 +1,13 @@
 .App {
   text-align: center;
-  background-color: #eabbcf;
+  background-color: #ccdcb2;
+}
+.addTodo {
+  height: 25px;
+  position: absolute;
+  top: calc(100% - 25px);
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 

@@ -1,7 +1,9 @@
-.todo-card {
+.todoCard {
     border: 4px black solid;
     margin: 12px;
     border-radius: 12px;
+    width: 150px;
+    background-color: #55794c !important ;
 
 
 }

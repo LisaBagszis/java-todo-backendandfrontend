@@ -1,10 +1,13 @@
 import {ToDo} from "./ToDo";
 import TodoCard from "./TodoCard";
+import {Typography} from "@mui/material";
 
 export type ToDoGalleryProps = {
     todos: ToDo[],
     updateTodo: (todo: ToDo) => void,
-    deleteTodo: (id: string) => void
+    deleteTodo: (id: string) => void,
+    changeMode: (newMode: string, id?: string, todo?: ToDo) => void
+
 }
 
 export default function ToDoGallery(props: ToDoGalleryProps) {
@@ -15,30 +18,33 @@ export default function ToDoGallery(props: ToDoGalleryProps) {
     return (
         <div className='todo-gallery'>
             <div className='todo-gallery-column'>
-                <h2>Todo</h2>
+                <Typography variant="h4" color="whitesmoke">Todo</Typography>
                 {
                     openTodos.map((todo) => <TodoCard key={todo.id}
                                                       todo={todo}
                                                       updateTodo={props.updateTodo}
-                                                      deleteTodo={props.deleteTodo}/>)
+                                                      deleteTodo={props.deleteTodo}
+                                                      changeMode={props.changeMode}/>)
                 }
             </div>
             <div className='todo-gallery-column'>
-                <h2>Doing</h2>
+                <Typography variant="h4" color="whitesmoke">Doing</Typography>
                 {
                     inProgressTodos.map((todo) => <TodoCard key={todo.id}
-                                                      todo={todo}
-                                                      updateTodo={props.updateTodo}
-                                                      deleteTodo={props.deleteTodo}/>)
+                                                            todo={todo}
+                                                            updateTodo={props.updateTodo}
+                                                            deleteTodo={props.deleteTodo}
+                                                            changeMode={props.changeMode}/>)
                 }
             </div>
             <div className='todo-gallery-column'>
-                <h2>Done</h2>
+                <Typography variant="h4" color="whitesmoke">Done</Typography>
                 {
                     doneTodos.map((todo) => <TodoCard key={todo.id}
                                                       todo={todo}
                                                       updateTodo={props.updateTodo}
-                                                      deleteTodo={props.deleteTodo}/>)
+                                                      deleteTodo={props.deleteTodo}
+                                                      changeMode={props.changeMode}/>)
                 }
             </div>
 
