@@ -27,7 +27,7 @@ export default function AddTodo(props: AddTodoProps) {
             <form onSubmit={onSaveTodo}>
             <TextField id="standard-basic" label="new Todo" variant="standard" value={description} onChange={(event) => {
                 setDescription(event.target.value)}}/>
-            <Button type='submit' variant = "contained" color = "success">Save</Button>
+            <Button type='submit' variant = "contained" color = "success">Savee</Button>
             </form>
             </div>
             )
