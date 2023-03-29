@@ -1,5 +1,6 @@
 import {ToDo} from "./ToDo";
 import {Button, Card, Typography} from "@mui/material";
+import {Link} from "react-router-dom";
 
 type TodoCardProps = {
     todo : ToDo,
@@ -31,7 +32,7 @@ export default function TodoCard(props: TodoCardProps) {
             <Typography variant="subtitle1" color="white"> {props.todo.description}</Typography>
             {props.todo.status !== 'DONE' && <Button variant="outlined" color="secondary" onClick={onAdvanceClick}>Advance</Button>}
             {props.todo.status == 'DONE' && <Button variant="outlined" color="secondary" onClick={onDeleteClick}>Delete</Button>}
-            <Button variant="outlined" color="success" onClick={() => props.changeMode("edit", props.todo.id, props.todo)}>Edit</Button>
+            <Link to = 'todos/edit'></Link>
         </Card>
     )
 }

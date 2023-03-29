@@ -3,11 +3,13 @@ import {NewTodo, ToDo} from "./ToDo";
 import axios from "axios";
 import {toast} from "react-toastify";
 import error = toast.error;
+import {useNavigate} from "react-router-dom";
 
 export default function useTodos () {
     const [todos, setTodos] = useState<ToDo[]>([])
     const [mode, setMode] = useState<string>("overview")
     const [currentTodo, setCurrentTodo] = useState<ToDo>({id: "", description: "", status: "OPEN"})
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadAllToDos()
@@ -22,7 +24,7 @@ export default function useTodos () {
     }
 
     function addTodo(newTodo: NewTodo) {
-        axios.post("api/todo", newTodo)
+        axios.post("/api/todo", newTodo)
             .then((addTodoResponse) => {
                 setTodos([...todos, addTodoResponse.data])
             })
@@ -61,6 +63,7 @@ export default function useTodos () {
         if (todo) {
             setCurrentTodo(todo)
         }
+        navigate('/todos/edit')
     }
 
     function getTodoById(id: string): void {
